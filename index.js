@@ -4,6 +4,7 @@ const moongoose = require('mongoose');
 const cors = require('cors')
 const User = require('./models/User');
 const fileUpload = require('express-fileupload');
+const Routes = require('./routes/Routes');
 
 const server = async () => {
     await moongoose.connect(config.database.host, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -16,18 +17,13 @@ const server = async () => {
     app.use(cors());
     app.use(fileUpload());
 
-    /* Authentication Routes */
-    app.use('/auth', require('./routes/Auth/Login'));
-    app.use('/auth', require('./routes/Auth/Token'));
-    app.use('/auth', require('./routes/Auth/Register'));
-
-    /* Data Routes */
-    app.use('/api', require('./routes/Data/AddFiles'));
-    app.use('/', require('./routes/Data/ShowFiles'));
+    /* Defining routes in Routes.js */
+    require('./routes/Routes')(app);
 
     app.listen(config.port, () => {
         console.log(`Server is running on port ${config.port}`);
     });
+    module.exports = app;
 }
 
 server().then(() => {

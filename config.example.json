@@ -1,0 +1,79 @@
+{
+    "database": {
+        "host": "MongoDB URL"
+    },
+    "port": "3000",
+    "authentication": {
+        "secret": "Your Key",
+        "salt": 7
+    },
+    "endpoints": {
+        "authorization": [
+            {
+                "path": "/api/auth/login",
+                "method": "POST",
+                "required": [
+                    "username",
+                    "password"
+                ]
+            },
+            {
+                "path": "/api/auth/register",
+                "method": "POST",
+                "required": [
+                    "username",
+                    "email",
+                    "password"
+                ]
+            },
+            {
+                "path": "/api/auth/verify",
+                "method": "POST",
+                "required": [
+                    "token"
+                ]
+            }
+        ],
+        "utils": [
+            {
+                "path": "/:username/:collection/:file",
+                "method": "GET",
+                "required": []
+            }
+        ],
+        "user management": [
+            {
+                "path": "/api/files/add",
+                "method": "POST",
+                "required": [
+                    "token",
+                    "collection",
+                    "filename",
+                    "file"
+                ]
+            },
+            {
+                "path": "/api/files/fetch/collection",
+                "method": "POST",
+                "required": [
+                    "token"
+                ]
+            },
+            {
+                "path": "/api/files/fetch/:collection",
+                "method": "POST",
+                "required": [
+                    "token"
+                ]
+            },
+            {
+                "path": "/api/files/create/collection",
+                "method": "POST",
+                "required": [
+                    "token",
+                    "collection"
+                ]
+            }
+        ]
+    }
+}

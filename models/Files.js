@@ -1,12 +1,12 @@
 const Schema = require('mongoose').Schema;
 const model = require('mongoose').model;
-const User = require('./User');
+const Collection = require('./Collection');
 
 const FilesSchema = new Schema({
-    User: [
+    Collection: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'Collection'
         }
     ],
     FileName: {
