@@ -13,11 +13,8 @@ router.get('/:name', async (req, res) => {
         })
     }
     const data = file.FileData;
-    if (file.FileType === 'image') {
-        return res.writeHead(200).end(Buffer.from(data, 'binary'));
-    } else if (file.FileType === 'video') {
-        return res.writeHead(200, { 'Content-Type': 'video/mp4', }).end(Buffer.from(data, 'binary'));
-    }
+    return res.writeHead(200, { 'Content-Type': file.FileType, }).end(Buffer.from(data, 'binary'));
+
 })
 
 module.exports = router;
