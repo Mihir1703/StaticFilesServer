@@ -34,7 +34,6 @@ router.post('/addfile', async (req, res) => {
         })
     }
     try{
-        console.log(buffer[Object.keys(buffer)[0]].mimetype)
         const files = await Files.create({
             User: userData,
             FileName: req.body.name,

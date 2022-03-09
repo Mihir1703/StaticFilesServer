@@ -23,7 +23,7 @@ const server = async () => {
 
     /* Data Routes */
     app.use('/api', require('./routes/Data/AddFiles'));
-    app.use('/files', require('./routes/Data/ShowFiles'));
+    app.use('/', require('./routes/Data/ShowFiles'));
 
     app.listen(config.port, () => {
         console.log(`Server is running on port ${config.port}`);
