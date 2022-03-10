@@ -73,6 +73,21 @@
                     "token",
                     "collection"
                 ]
+            },
+            {
+                "path": "/api/files/collection",
+                "method": "DETETE",
+                "required": [
+                    "token",
+                    "collection"
+                ]
+            },
+            {
+                "path": "/api/files/:collection/:files",
+                "method": "DETETE",
+                "required": [
+                    "token"
+                ]
             }
         ]
     }
