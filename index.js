@@ -23,7 +23,6 @@ const server = async () => {
     app.listen(config.port, () => {
         console.log(`Server is running on port ${config.port}`);
     });
-    module.exports = app;
 }
 
 server().then(() => {
