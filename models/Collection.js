@@ -12,9 +12,7 @@ const CollectionSchema = new Schema({
     Collection: {
         type: String,
         required: true,
-        unique: true,
-        minlength: 6,
-        maxlength: 30,
+        unique: true
     }
 })
 

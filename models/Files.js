@@ -12,8 +12,6 @@ const FilesSchema = new Schema({
     FileName: {
         type: String,
         required: true,
-        minlength: 6,
-        maxlength: 30,
         unique: true
     },
     FileData: {
