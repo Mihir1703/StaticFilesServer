@@ -1,13 +1,14 @@
 import React from 'react'
-import { Button } from '@mui/material'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import SignIn from './Components/SignIn'
 
 const App = () => {
     return (
-        <>
-            <Button variant="contained">
-                Hello World
-            </Button>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/login" element={<SignIn />} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 
