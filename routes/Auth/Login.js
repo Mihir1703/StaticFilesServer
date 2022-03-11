@@ -4,11 +4,18 @@ const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const config = require('../../config.json');
 const jwt = require('jsonwebtoken');
+const { body, validationResult } = require('express-validator');
 const jwtSecret = config.authentication.secret;
 const fetchuser = require('../../middleware/FetchUser');
 
-router.post('/login', [], async (req, res) => {
-    if(req.body.data !== undefined) req.body = JSON.parse(req.body.data);
+router.post('/login', [
+    body('username').not().isEmpty().withMessage('Enter a valid username'),
+    body('password').not().isEmpty().withMessage('Password is required'),
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const { username, password } = req.body;
     if (!username || !password) {
         return res.status(400).json({
