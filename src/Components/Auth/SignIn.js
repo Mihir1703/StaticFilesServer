@@ -16,7 +16,7 @@ import Cookies from 'universal-cookie/es6'
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-
+import alreadyLoggedIn from '../../Util/Token';
 
 
 function Copyright(props) {
@@ -45,7 +45,7 @@ export default function SignIn() {
             password: data.get('password'),
         }
         console.log(data);
-        let req = await axios.post('/api/auth/login',data,{
+        let req = await axios.post('/api/auth/login', data, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -58,23 +58,10 @@ export default function SignIn() {
             console.log(cookies.get('token'));
         }
     };
-
-    const alreadyLoggedIn = async () => {
-        console.log(cookies.get('token'));
-        let req = await axios.post('/api/auth/verify',{}, {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                "Access-Control-Allow-Origin": "*",
-                'authtoken': cookies.get('token')
-            }
-        });
-        let json = await req.data;  
-        if(json.success !== undefined){
-            history('/');
-        }
-    }
     useEffect(() => {
-        alreadyLoggedIn();
+        alreadyLoggedIn(() => {
+            history('/');
+        },cookies);
     })
 
     return (
