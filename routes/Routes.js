@@ -6,4 +6,6 @@ module.exports = (app) => {
     app.use('/api/files', require('./Data/AddFiles'));
     app.use('/api/files', require('./Data/DeleteFiles'));
     app.use('/', require('./Data/ShowFiles'));
+    app.use('/', require('./Url/Serve'));
+    app.use('/api', require('./Url/Redirect'));
 }

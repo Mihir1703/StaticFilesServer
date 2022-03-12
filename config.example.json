@@ -89,6 +89,22 @@
                     "token"
                 ]
             }
+        ],
+        "url redirect": [
+            {
+                "path": "/api/urls",
+                "method": "POST",
+                "required": [
+                    "token",
+                    "url",
+                    "new_url"
+                ]
+            },
+            {
+                "path": "/:url",
+                "method": "GET",
+                "required": []
+            }
         ]
     }
 }
