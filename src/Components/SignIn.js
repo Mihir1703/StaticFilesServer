@@ -45,9 +45,10 @@ export default function SignIn() {
             password: data.get('password'),
         }
         console.log(data);
-        let req = await axios.post('https://StaticFilesServer.mihirwaykole.repl.co/api/auth/login', {
-            method: 'POST',
-            data: JSON.stringify(data)
+        let req = await axios.post('/api/auth/login',data,{
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
         let json = await req.data;
         console.log(json.success);
@@ -60,7 +61,7 @@ export default function SignIn() {
 
     const alreadyLoggedIn = async () => {
         console.log(cookies.get('token'));
-        let req = await axios.post('https://StaticFilesServer.mihirwaykole.repl.co/api/auth/verify',{}, {
+        let req = await axios.post('/api/auth/verify',{}, {
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                 "Access-Control-Allow-Origin": "*",
