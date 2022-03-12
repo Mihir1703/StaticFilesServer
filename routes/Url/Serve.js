@@ -12,11 +12,7 @@ router.get('/:site', [], async (req, res) => {
             message: 'Site not found'
         });
     }
-    if(data.old_url.includes('http://') || data.old_url.includes('https://')){
-        res.redirect(data.old_url);
-    }else{
-        res.redirect('https://' + data.old_url);
-    }
+    res.redirect(data.old_url);
 })
 
 module.exports = router;
