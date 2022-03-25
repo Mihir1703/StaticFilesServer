@@ -18,13 +18,10 @@ router.get('/:site', [], async (req, res) => {
 })
 
 function validURL(str) {
-    let pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    return !!pattern.test(str);
+    if(str.indexOf('http://') == -1 && str.indexOf('https://') == -1 && str.indexOf('.') == -1) {
+        return false;
+    }
+    return true;
 }
 
 router.post('/urls', [], async (req, res) => {
@@ -50,15 +47,22 @@ router.post('/urls', [], async (req, res) => {
         });
     }
     user = await User.findOne({ username: user.username });
-    const data = await UrlRedirect.create({
-        User: user,
-        old_url: old_url,
-        new_url: new_url,
-    });
-    return res.status(200).json({
-        success: true,
-        message: 'Url created successfully',
-    })
+    try{
+        const data = await UrlRedirect.create({
+            User: user,
+            old_url: old_url,
+            new_url: new_url,
+        });
+        return res.status(200).json({
+            success: true,
+            message: 'Url created successfully',
+        })
+    }catch(err){
+        return res.status(200).json({
+            success: false,
+            message: 'Error occured',
+        })
+    }
 });
 
 module.exports = router;
