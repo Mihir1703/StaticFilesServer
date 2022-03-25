@@ -11,7 +11,7 @@ router.get('/:user/:collection/:name', async (req, res) => {
         req.params.collection = await Collection.findOne({ User: userName, Collection: req.params.collection });
         const file = await Files.findOne({ FileName: fileName, Collection: req.params.collection });
         if (!file) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 message: 'File not found'
             })
@@ -20,7 +20,7 @@ router.get('/:user/:collection/:name', async (req, res) => {
         return res.writeHead(200, { 'Content-Type': file.FileType, }).end(Buffer.from(data, 'binary'));
     }catch(err){
         console.log(err)
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'URL not found'
         })

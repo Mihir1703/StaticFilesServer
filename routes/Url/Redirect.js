@@ -32,19 +32,19 @@ router.post('/urls', [], async (req, res) => {
     let user = fetchuser(token);
     const { old_url, new_url } = req.body;
     if (!old_url || !new_url) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Please enter all fields'
         });
     }
     if (user == null || user == Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Please login to continue'
         });
     }
     if (!validURL(old_url)) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Please enter valid url'
         });

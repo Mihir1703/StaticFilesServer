@@ -10,19 +10,19 @@ router.post('/add', async (req, res) => {
     const token = req.header('authtoken');
     const data = fetchuser(token);
     if (!data) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Invalid token'
         })
     }
     else if (data === Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Internal error'
         })
     }
     if (!req.files) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'No files were uploaded'
         })
@@ -30,14 +30,14 @@ router.post('/add', async (req, res) => {
     let userData = await User.findOne({ username: data.username });
     const buffer = req.files;
     if (!buffer) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'No files were uploaded'
         })
     }
     collection = await Collection.findOne({ Collection: collection, User: userData });
     if (!collection) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Collection not found'
         })
@@ -55,7 +55,7 @@ router.post('/add', async (req, res) => {
         })
     } catch (err) {
         console.log(err)
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'File Name Already Exist'
         })
@@ -66,13 +66,13 @@ router.post('/create/collection', async (req, res) => {
     const token = req.header('authtoken');
     const data = fetchuser(token);
     if (!data) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Invalid token'
         })
     }
     else if (data === Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Internal error'
         })
@@ -88,7 +88,7 @@ router.post('/create/collection', async (req, res) => {
             message: 'Collection created successfully'
         })
     } catch (err) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Collection already exists'
         })
@@ -99,13 +99,13 @@ router.post('/fetch/collections', async (req, res) => {
     const token = req.header('authtoken');
     const data = fetchuser(token);
     if (!data) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Invalid token'
         })
     }
     else if (data === Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Internal error'
         })
@@ -124,13 +124,13 @@ router.post('/fetch/:collections', async (req, res) => {
     const token = req.header('authtoken');
     const data = fetchuser(token);
     if (!data) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Invalid token'
         })
     }
     else if (data === Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Internal error'
         })
@@ -139,7 +139,7 @@ router.post('/fetch/:collections', async (req, res) => {
 
     Files.find({ User: userData, Collection: req.params.collections }).select('FileName').then(files => {
         if (files.length === 0) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 message: 'No files found'
             })

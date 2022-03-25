@@ -14,25 +14,25 @@ router.post('/login', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(200).json({ errors: errors.array() });
     }
     const { username, password } = req.body;
     if (!username || !password) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Please enter all fields'
         });
     }
     let user = await User.findOne({ username: username });
     if (!user) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'User not found'
         });
     }
     let isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Incorrect password'
         })
@@ -45,11 +45,12 @@ router.post('/login', [
     }, jwtSecret, {
         expiresIn: '10d',
     })
-    return res.status(200).json({
+    res.status(200).json({
         success: true,
         message: 'User logged in successfully',
         token: token,
     })
+    return;
 })
 
 module.exports = router;

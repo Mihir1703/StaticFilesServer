@@ -10,22 +10,22 @@ router.delete('/collection', async (req, res) => {
     const token = req.header('authtoken');
     const data = fetchuser(token);
     if (!data) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Invalid token'
         })
     }
     else if (data === Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Internal error'
         })
     }
     let userData = await User.findOne({ username: data.username });
-    const collection = req.body.collection;
+    let collection = req.body.collection;
     collection = await Collection.findOne({ Collection: collection, User: userData });
     if (!collection) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Collection not found'
         })
@@ -40,7 +40,7 @@ router.delete('/collection', async (req, res) => {
             message: 'Collection deleted successfully'
         })
     } catch (err) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Try Again, Some error Occured'
         })
@@ -51,22 +51,22 @@ router.delete('/:collection/:file', async (req, res) => {
     const token = req.header('authtoken');
     const data = fetchuser(token);
     if (!data) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Invalid token'
         })
     }
     else if (data === Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Internal error'
         })
     }
     let userData = await User.findOne({ username: data.username });
-    const collection = req.params.collection;
+    let collection = req.params.collection;
     collection = await Collection.findOne({ Collection: collection, User: userData });
     if (!collection || collection.length === 0) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Collection not found'
         })
@@ -74,7 +74,7 @@ router.delete('/:collection/:file', async (req, res) => {
     const file = req.params.file;
     const fileData = await Files.findOne({ FileName: file, Collection: collection });
     if (!fileData || fileData.length === 0) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'File not found'
         })
@@ -89,7 +89,7 @@ router.delete('/:collection/:file', async (req, res) => {
                 message: 'File deleted successfully'
             })
         } catch (err) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 message: 'Try Again, Some error Occured'
             })

@@ -31,6 +31,7 @@ router.post('/register', [
         email: email,
         password: hashKey
     }).catch(err => {
+        console.log(err);
         return res.status(500).json({
             success: false,
             message: "Error creating user"
@@ -44,11 +45,12 @@ router.post('/register', [
     }, jwtSecret, {
         expiresIn: '10d',
     })
-    return res.status(200).json({
+    res.status(200).json({
         success: true,
         message: 'User created successfully',
         token: token
     })
+    return;
 })
 
 module.exports = router;

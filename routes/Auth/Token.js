@@ -12,12 +12,12 @@ router.post('/verify', [], async (req, res) => {
     const token = req.header('authtoken');
     const data = fetchuser(token);
     if (!data) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Invalid token'
         })
     } else if (data === Number.NaN) {
-        return res.status(400).json({
+        return res.status(200).json({
             success: false,
             message: 'Internal error'
         })
