@@ -2,13 +2,25 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SignIn from './Components/Auth/SignIn'
 import SignUp from './Components/Auth/SignUp'
+import Error from './Components/Error'
+import Header from './Components/Main/Header'
+
+const routes = {
+    '/': <Header />,
+    '/login': <SignIn />,
+    '/signup': <SignUp />,
+    '*': <Error />
+}
 
 const App = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
+                {
+                    Object.keys(routes).map((route, index) => {
+                        return (<Route key={index} path={route} element={routes[route]} />);
+                    })
+                }
             </Routes>
         </BrowserRouter>
     )

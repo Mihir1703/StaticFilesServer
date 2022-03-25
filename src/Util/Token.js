@@ -1,6 +1,11 @@
 import axios from "axios";
 
 const alreadyLoggedIn = async (callback,cookies) => {
+    let token = cookies.get('token');
+    console.log(token);
+    if(cookies.get('token') === undefined){
+        return false;
+    }
     let req = await axios.post('/api/auth/verify', {}, {
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
@@ -11,6 +16,8 @@ const alreadyLoggedIn = async (callback,cookies) => {
     let json = await req.data;
     if (json.success !== undefined) {
         callback()
+    }else{
+        return false;
     }
 }   
 
