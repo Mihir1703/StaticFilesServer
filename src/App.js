@@ -4,12 +4,14 @@ import SignIn from './Components/Auth/SignIn'
 import SignUp from './Components/Auth/SignUp'
 import Error from './Components/Error'
 import Header from './Components/Main/Header'
+import ShortUrls from './Components/Main/ShortUrls'
 
 const routes = {
     '/': <Header />,
     '/login': <SignIn />,
     '/signup': <SignUp />,
-    '*': <Error />
+    '*': <Error />,
+    '/short-urls': <><Header /><ShortUrls /></>,
 }
 
 const App = () => {

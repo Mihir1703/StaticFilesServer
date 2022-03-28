@@ -4,6 +4,11 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import alreadyLoggedIn from '../../Util/Token';
+import login_svg from '../../static/images/login.svg';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal);
 
 
 export default function SignIn() {
@@ -13,7 +18,13 @@ export default function SignIn() {
         event.preventDefault();
         let data = new FormData(event.currentTarget);
         if (data.get('password') !== data.get('confirmPassword')) {
-            alert('Passwords do not match');
+            MySwal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Passwords do not match',
+            }).then(() => {
+                MySwal.close();
+            })
         }
         data = {
             username: data.get('username'),
@@ -32,7 +43,7 @@ export default function SignIn() {
     useEffect(() => {
         alreadyLoggedIn(() => {
             history('/');
-        },cookies);
+        }, cookies);
     })
 
     return (
@@ -40,7 +51,7 @@ export default function SignIn() {
             className="my-1 max-w-md p-6 mx-auto bg-white flex flex-col justify-center mt-5 rounded-xl shadow-lg dark:bg-gray-800">
 
             <div className='flex flex-col items-center my-5'>
-                <img src="/mihir@admin/main-site/login-svg" className='h-[50%] w-[60%]' />
+                <img src={login_svg} alt="Alt" className='h-[50%] w-[60%]' />
             </div>
 
             <h2 className="text-3xl text-center font-Roboto text-gray-700 capitalize dark:text-white font-semibold">Sign In</h2>

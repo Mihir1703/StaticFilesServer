@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie/es6'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import alreadyLoggedIn from '../../Util/Token';
+import login_svg from '../../static/images/login.svg';
 
 export default function SignIn() {
     const cookies = new Cookies();
@@ -38,7 +39,7 @@ export default function SignIn() {
             className="my-1 max-w-md p-6 mx-auto bg-white flex flex-col justify-center mt-5 rounded-xl shadow-lg dark:bg-gray-800">
 
             <div className='flex flex-col items-center my-5'>
-                <img src="/mihir@admin/main-site/login-svg" className='h-[50%] w-[80%]' />
+                <img src={login_svg} alt="Nothing" className='h-[50%] w-[80%]' />
             </div>
 
             <h2 className="text-3xl text-center font-Roboto text-gray-700 capitalize dark:text-white font-semibold">Sign In</h2>
