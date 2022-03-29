@@ -11,8 +11,7 @@ const UrlRedirectSchema = new Schema({
     ],
     old_url: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     new_url: {
         type: String,
