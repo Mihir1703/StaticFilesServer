@@ -24,6 +24,22 @@ function validURL(str) {
     return true;
 }
 
+router.post('/allurls', [], async (req, res) => {
+    const token = req.header('authtoken');
+    let user = fetchuser(token);
+    console.log(user);
+    if (!user) {
+        return res.status(401).json({
+            success: false,
+            message: 'Unauthorized'
+        });
+    }else{
+        const user_data = await User.findOne({ username: user.username });
+        const urls = await UrlRedirect.find({ user_id: user_data });
+        console.log(urls);
+    }
+})
+
 router.post('/urls', [], async (req, res) => {
     const token = req.header('authtoken');
     let user = fetchuser(token);
