@@ -2,9 +2,7 @@ const config = require('./config.json');
 const express = require('express');
 const moongoose = require('mongoose');
 const cors = require('cors')
-const User = require('./models/User');
 const fileUpload = require('express-fileupload');
-const Routes = require('./routes/Routes');
 
 const server = async () => {
     await moongoose.connect(config.database.host, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
