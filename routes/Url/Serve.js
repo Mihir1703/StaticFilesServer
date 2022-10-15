@@ -4,8 +4,8 @@ const config = require('../../config.json');
 const UrlRedirect = require('../../models/Url');
 const User = require('../../models/User');
 
-router.get('/:username/:site', [], async (req, res) => {
-    const { site } = req.params;
+router.get('/:username/:site', async (req, res) => {
+    const { site, username } = req.params;
     const user = await User.findOne({ username: req.params.username });
     const data = await UrlRedirect.findOne({ new_url: site, User: user }).select('new_url old_url');
     if (!data || data.length == 0) {

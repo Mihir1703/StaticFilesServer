@@ -7,6 +7,7 @@ const UrlRedirect = require('../../models/Url');
 
 router.get('/:site', [], async (req, res) => {
     const { site } = req.params;
+    console.log(site)
     const data = await UrlRedirect.findOne({ new_url: site }).select('new_url old_url');
     if (!data || data.length == 0) {
         return res.status(404).json({

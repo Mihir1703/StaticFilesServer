@@ -5,6 +5,7 @@ const Files = require('../../models/Files');
 const User = require('../../models/User');
 
 router.get('/:user/:collection/:name', async (req, res) => {
+    console.log("Call")
     try {
         const fileName = req.params.name;
         const userName = await User.findOne({ username: req.params.user });
