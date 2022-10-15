@@ -25,19 +25,19 @@ export default function SignIn() {
             }).then(() => {
                 MySwal.close();
             })
+            return;
         }
         data = {
             username: data.get('username'),
             email: data.get('email'),
             password: data.get('password'),
         }
-        console.log(data);
         let req = await axios.post('/api/auth/register', data);
         let json = await req.data;
         if (json.success) {
             cookies.set('token', json.token);
+            cookies.set('username', data.username);
             history('/');
-            console.log(cookies.get('token'));
         }
     };
     useEffect(() => {

@@ -22,13 +22,12 @@ const ShortUrls = () => {
                 'authtoken': cookies.get('token')
             }
         });
-        let url = window.location.hostname;
+        let url = window.location.host.replace('3000','8000');
         let json = await req.data;
-        console.log(json);
         if (json.success) {
             MySwal.fire({
-                title: <p>Success! https://{url}/{data.new_url}</p>,
-                footer: '<a href="https://' + url + '/' + data.new_url + '">Click here to visit</a>',
+                title: <p>Success! http://{url}/{cookies.get('username')}/{data.new_url}</p>,
+                footer: '<a href="http://' + url + '/' + cookies.get('username') + '/' + data.new_url + '">Click here to visit</a>',
                 icon: 'success',
             }).then(() => {
                 MySwal.close();

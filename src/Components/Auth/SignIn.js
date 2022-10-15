@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import alreadyLoggedIn from '../../Util/Token';
 import login_svg from '../../static/images/login.svg';
+import Swal from "sweetalert2";
 
 export default function SignIn() {
     const cookies = new Cookies();
@@ -16,16 +17,24 @@ export default function SignIn() {
             username: data.get('username'),
             password: data.get('password'),
         }
+
         let req = await axios.post('/api/auth/login', data, {
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-            let response = await req.data;
-            console.log(response);
+        let response = await req.data;
         if (response.success === true) {
             cookies.set('token', response.token);
+            cookies.set('username', data.username);
             history('/');
+        }else{
+            Swal.fire({
+                title: 'Try Again',
+                text: response.message,
+                icon: 'error',
+                confirmButtonText: 'Okay'
+            })
         }
     };
     useEffect(() => {
